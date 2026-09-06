@@ -55,3 +55,17 @@
   (OrgChart: Kades -> Sekdes -> Kaur/Kasi, Wilayah, BPD, Lembaga)
 - Sidebar + command palette: tambah nav Profil Desa
 - Test: tests/phase3.test.mjs (5) hijau; tsc/eslint/build hijau; 21 PASS total
+
+## 2026-09-06 — Phase 4 (Population & Family Registry) SELESAI
+
+- Migration 008_population: families (KK, head_resident_id), residents
+  (NIK unique, status workflow, soft delete), resident_events (timeline),
+  view potential_duplicate_residents (pg_trgm similarity > 0.75 + NIK sama)
+- API: /api/residents (CRUD + status change + audit), /api/residents/[id]
+  (detail + timeline + duplikat), /api/families (CRUD)
+- UI: /admin/penduduk tab Penduduk/Keluarga; server-side search + filter
+  status + pagination; detail modal dengan timeline + tombol ubah status
+  (pindah/meninggal/pendatang/kembali tetap); ekspor CSV per halaman
+- Dashboard: StatCard total penduduk nyata dari DB
+- Test: tests/phase4.test.mjs (7, idempotent) hijau; total 28 PASS;
+  tsc/eslint/build hijau

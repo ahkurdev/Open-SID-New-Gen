@@ -5,7 +5,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 1 — Foundation & Design System
 [x] Phase 2 — Multi-tenant, Auth, Role & Security
 [x] Phase 3 — Profil & Struktur Pemerintahan Desa
-[ ] Phase 4 — Population & Family Registry
+[x] Phase 4 — Population & Family Registry
 [ ] Phase 5 — Digital Document & Archive Center
 [ ] Phase 6 — Letter Service & Workflow Builder
 [ ] Phase 7 — Citizen Portal (Super App Warga)
@@ -98,3 +98,36 @@ Tests: tests/phase3.test.mjs (5): profil update, sejarah jabatan, RLS
 isolasi officials, view publik tanpa PII, data org chart
 
 Known issue: foto pejabat & logo desa menunggu modul storage (fase 5)
+
+---
+
+## Phase 4 — Population & Family Registry
+
+Status: SELESAI
+
+Fitur:
+- Registry penduduk lengkap: NIK, KK, gender, ttl, hubungan keluarga,
+  pendidikan, pekerjaan, status perkawinan, agama, alamat RT/RW/dusun,
+  status (tetap/pendatang/tidak tetap/pindah/meninggal)
+- Registry keluarga (KK): no. KK, alamat, kepala keluarga auto-link,
+  jumlah anggota
+- Workflow status: pindah / meninggal / datang / perubahan KK, dengan
+  previous_status tersimpan (data tidak hilang)
+- Timeline Penduduk: semua peristiwa (terdaftar, perubahan data, pindah,
+  dll) tersimpan di resident_events dan tampil di detail penduduk
+- Duplicate detection: view potential_duplicate_residents (NIK sama atau
+  nama serupa + tgl lahir sama via pg_trgm similarity)
+- Pencarian server-side (nama/NIK, filter status), pagination, ekspor CSV
+- Soft delete penduduk; audit trail create/update/delete/status change
+- Index: gin_trgm_ops untuk nama, idx nik/family/village
+
+Database migration: 008_population
+
+API: /api/residents (GET/POST/PATCH/DELETE + status change via PATCH
+eventType), /api/residents/[id] (detail + timeline + duplikat),
+/api/families (GET/POST/PATCH)
+
+Tests: tests/phase4.test.mjs (7): keluarga+KK link, NIK unique constraint,
+timeline, previous_status, duplicate detection, RLS isolasi, trigram index
+
+Known issue: import massal & foto penduduk menyusul (butuh storage fase 5)
