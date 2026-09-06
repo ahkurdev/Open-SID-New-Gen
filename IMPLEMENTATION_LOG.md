@@ -125,3 +125,15 @@
 - UI: /admin/antrean dengan StatCard harian, daftar tiket + aksi inline,
   form walk-in, filter tanggal
 - Test: tests/phase8.test.mjs (6) hijau; total 51 PASS; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 9 (Complaint & Case Management) SELESAI
+
+- Migration 013_complaints: complaints (ticket_no, anonim, SLA, rating,
+  workflow 7 status), complaint_actions (timeline), complaint_sla
+  (SLA per kategori per desa, seed 10 kategori), view overdue_complaints
+- API: /api/complaints (GET + stats, POST submit, PATCH verify/assign/
+  progress/resolve/close/reject/rate), /api/complaints/[id]
+- UI: /admin/pengaduan dengan statistik (overdue merah), aksi inline
+  sesuai status, assignment ke staff, rating pelapor
+- Notifikasi ke staff saat ada pengaduan baru, ke petugas saat ditugaskan
+- Test: tests/phase9.test.mjs (5) hijau; total 56 PASS; tsc/eslint/build hijau

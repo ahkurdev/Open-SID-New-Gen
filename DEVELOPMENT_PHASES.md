@@ -10,7 +10,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 6 — Letter Service & Workflow Builder
 [x] Phase 7 — Citizen Portal (Super App Warga)
 [x] Phase 8 — Front Office, Queue & Appointment
-[ ] Phase 9 — Complaint & Case Management
+[x] Phase 9 — Complaint & Case Management
 [ ] Phase 10 — Public Website & Open Government
 [ ] Phase 11 — Government Workspace
 [ ] Phase 12 — Participatory Planning (E-Musrenbang)
@@ -272,3 +272,38 @@ tiket urut, workflow status, statistik harian, RLS isolasi
 
 Known issue: display layar antrean (kiosk/TV) & QR check-in menyusul
 (fase kiosk/field mode)
+
+---
+
+## Phase 9 — Complaint & Case Management
+
+Status: SELESAI
+
+Fitur:
+- Pengaduan 10 kategori (jalan, sampah, pelayanan, bantuan, keamanan,
+  fasilitas, lampu, banjir, administrasi, lainnya)
+- Ticket number otomatis TKT/{TAHUN}/{SEQ} per desa
+- Pengaduan anonim: identitas disamar (nama samaran), flag is_anonymous
+- SLA per kategori konfigurabel per desa (complaint_sla); sla_due_at
+  dihitung saat submit; view overdue_complaints + badge "SLA" di UI
+- Workflow lengkap: new -> verified -> assigned -> in_progress -> resolved
+  -> closed (atau rejected); validasi transisi status
+- Assignment ke petugas (dari daftar staff desa) + notifikasi in-app
+- Rating kepuasan pelapor 1-5 setelah resolved (hanya pelapor)
+- Timeline semua aksi + catatan; statistik dashboard (total/aktif/selesai/
+  overdue)
+- Audit trail semua aksi; RLS isolasi per desa
+
+Database migration: 013_complaints (complaints, complaint_actions,
+complaint_sla + seed 10 kategori, view overdue_complaints)
+
+API: /api/complaints (GET/POST/PATCH dengan 7 aksi), /api/complaints/[id]
+(detail + timeline + daftar staff)
+
+UI: /admin/pengaduan (statistik, filter status, detail + timeline + aksi
+sesuai status, form catat pengaduan dengan opsi anonim)
+
+Tests: tests/phase9.test.mjs (5): SLA seed, submit anonim + ticket,
+workflow lengkap + rating, overdue view, RLS isolasi
+
+Known issue: upload foto before/after & GPS picker map menyusul (fase GIS)
