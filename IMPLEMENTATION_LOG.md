@@ -69,3 +69,21 @@
 - Dashboard: StatCard total penduduk nyata dari DB
 - Test: tests/phase4.test.mjs (7, idempotent) hijau; total 28 PASS;
   tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 5 (Digital Document & Archive Center) SELESAI
+
+- Migration 009_documents: documents (13 jenis, doc_number, verification_code,
+  expires_at, soft delete), document_versions, document_categories,
+  document_access_logs; fungsi app.next_doc_number + app.verify_document
+  (SECURITY DEFINER, GRANT PUBLIC utk verifikasi tanpa login)
+- Storage lokal privat vendor/storage/documents/{village}/{doc}/; whitelist
+  MIME + max 20MB; download via API dengan permission + access log
+- API: /api/documents (multipart upload), /api/documents/[id]/download,
+  /api/verify-document (publik)
+- UI: /admin/dokumen (upload, daftar, filter, QR code tampil), /verify
+  (halaman publik cek keaslian dokumen)
+- Nav sidebar + palette: Arsip Dokumen; landing page: link Verifikasi
+- Test: tests/phase5.test.mjs (6, idempotent) hijau; total 34 PASS;
+  tsc/eslint/build hijau
+- Catatan: psql 16.9 - RETURNING expression dengan function call tidak
+  dievaluasi inline; pattern: panggil fungsi dulu lalu pakai hasilnya

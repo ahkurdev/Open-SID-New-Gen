@@ -6,7 +6,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 2 — Multi-tenant, Auth, Role & Security
 [x] Phase 3 — Profil & Struktur Pemerintahan Desa
 [x] Phase 4 — Population & Family Registry
-[ ] Phase 5 — Digital Document & Archive Center
+[x] Phase 5 — Digital Document & Archive Center
 [ ] Phase 6 — Letter Service & Workflow Builder
 [ ] Phase 7 — Citizen Portal (Super App Warga)
 [ ] Phase 8 — Front Office, Queue & Appointment
@@ -131,3 +131,37 @@ Tests: tests/phase4.test.mjs (7): keluarga+KK link, NIK unique constraint,
 timeline, previous_status, duplicate detection, RLS isolasi, trigram index
 
 Known issue: import massal & foto penduduk menyusul (butuh storage fase 5)
+
+---
+
+## Phase 5 — Digital Document & Archive Center
+
+Status: SELESAI
+
+Fitur:
+- Upload dokumen 13 jenis (SK, Perdes, Perkades, surat masuk/keluar,
+  kontrak, proposal, laporan, berita acara, foto, tanah, aset, lainnya)
+- Nomor dokumen otomatis per jenis per tahun: {TIPE}/{TAHUN}/{SEQ urut}
+- Storage lokal privat: vendor/storage/documents/{village_id}/{doc_id}/
+  dengan whitelist MIME (PDF, gambar, Office, teks) + limit 20MB
+- Version history: document_versions mencatat tiap versi + change note
+- Verification code + halaman publik /verify: cek keaslian dokumen via
+  fungsi SECURITY DEFINER app.verify_document (tanpa login)
+- Reminder kedaluwarsa: dokumen dengan expires_at < 30 hari ditandai
+- Soft delete; download via API dengan permission check + access log
+- Pencarian full-text (judul/nomor/deskripsi) + filter jenis + pagination
+
+Database migration: 009_documents (documents, document_versions,
+document_categories, document_access_logs, app.next_doc_number,
+app.verify_document)
+
+API: /api/documents (GET/POST upload multipart/DELETE),
+/api/documents/[id]/download, /api/verify-document (publik)
+
+UI: /admin/dokumen (daftar + unggah + QR verification code),
+/verify (halaman publik tanpa login)
+
+Tests: tests/phase5.test.mjs (6): nomor otomatis, verifikasi QR,
+version history, expiry flag, RLS isolasi, soft delete effect
+
+Known issue: preview inline & check-in/check-out multi-user menyusul
