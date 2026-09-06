@@ -8,7 +8,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 4 — Population & Family Registry
 [x] Phase 5 — Digital Document & Archive Center
 [x] Phase 6 — Letter Service & Workflow Builder
-[ ] Phase 7 — Citizen Portal (Super App Warga)
+[x] Phase 7 — Citizen Portal (Super App Warga)
 [ ] Phase 8 — Front Office, Queue & Appointment
 [ ] Phase 9 — Complaint & Case Management
 [ ] Phase 10 — Public Website & Open Government
@@ -203,3 +203,37 @@ end-to-end submit->issue + nomor otomatis, verifikasi, reject + alasan,
 SLA, RLS isolasi
 
 Known issue: generate PDF surat & tanda tangan digital menyusul (fase lanjut)
+
+---
+
+## Phase 7 — Citizen Portal (Super App Warga)
+
+Status: SELESAI
+
+Fitur:
+- Portal warga terpisah (/warga) dengan header sendiri: data diri, KK +
+  anggota keluarga, pengajuan surat, riwayat koreksi
+- Link akun user <-> resident (users.resident_id); akun warga demo ter-seed
+- Digital Resident Card: kode unik per warga (card_code) untuk akses
+  layanan; dengan disclaimer bukan pengganti KTP
+- Pengajuan surat self-service: pilih template aktif, form dinamis dari
+  schema template, terhubung ke resident_id pemohon
+- Tracking status surat miliknya (submitted s.d. issued) dengan badge
+- Koreksi data diri: kolom terbatas (telepon, pekerjaan, pendidikan,
+  alamat, agama), alasan wajib, tidak bisa duplikat pending, review
+  operator -> approve menerapkan perubahan + timeline event + notifikasi
+  ke warga; reject dengan catatan
+- RLS: warga hanya melihat koreksi miliknya; data penduduk tetap
+  terisolasi per desa
+
+Database migration: 011_citizen_portal (users.resident_id,
+correction_requests, residents.card_code, seed warga demo + link)
+
+API: /api/citizen/me (profil lengkap), /api/citizen/corrections (POST),
+/api/corrections (GET list untuk operator, PATCH review)
+
+Tests: tests/phase7.test.mjs (4): link user-resident + card_code, koreksi
+approve menerapkan perubahan + timeline, RLS koreksi per user, RLS resident
+
+Known issue: pengajuan surat warga belum pakai form schema dinamis penuh
+(hanya template tanpa field custom) - menyusul penyempurnaan

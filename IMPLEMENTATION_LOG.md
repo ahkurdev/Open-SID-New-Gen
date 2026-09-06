@@ -102,3 +102,15 @@
 - UI: /admin/surat dengan Template Builder no-code (form field editor +
   approval steps + SLA), form pengajuan dinamis dari schema, detail timeline
 - Test: tests/phase6.test.mjs (7) hijau; total 41 PASS; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 7 (Citizen Portal) SELESAI
+
+- Migration 011_citizen_portal: users.resident_id, correction_requests
+  (workflow pending/approved/rejected + RLS owner-or-village),
+  residents.card_code, seed "Warga Demo Sinar Mulyo" + link akun warga
+- API: /api/citizen/me, /api/citizen/corrections (submit), /api/corrections
+  (review operator: approve menerapkan perubahan + resident_events +
+  notifikasi ke warga)
+- UI: /warga portal terpisah (data diri, KK + anggota, kartu digital
+  dengan card_code, pengajuan surat, tracking status, riwayat koreksi)
+- Test: tests/phase7.test.mjs (4) hijau; total 45 PASS; tsc/eslint/build hijau
