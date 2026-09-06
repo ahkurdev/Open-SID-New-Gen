@@ -209,3 +209,12 @@
 - API: /api/aid + /api/aid/insight dengan validasi transisi status
 - UI: /admin/bantuan dengan modal rekomendasi explainable
 - Test: tests/phase16.test.mjs (5) hijau; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 17 (GIS & Village Digital Twin) SELESAI
+
+- Migration 022_gis: gis_objects (GeoJSON, 8 jenis, link aset/proposal),
+  gis_incidents (6 jenis, 4 severity, workflow 6 status),
+  app.gis_features_public (FeatureCollection publik), RLS
+- API: /api/gis + /api/gis/public
+- UI: /admin/gis dengan panel insiden + workflow inline
+- Test: tests/phase17.test.mjs (4) hijau; tsc/eslint/build hijau

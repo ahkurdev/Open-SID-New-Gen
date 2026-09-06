@@ -18,7 +18,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 14 — Procurement, Contract & Vendor
 [x] Phase 15 — Asset, Inventory & Infrastructure
 [x] Phase 16 — Social Aid & Welfare Intelligence
-[ ] Phase 17 — GIS & Village Digital Twin
+[x] Phase 17 — GIS & Village Digital Twin
 [ ] Phase 18 — Agriculture, Livestock, Fishery
 [ ] Phase 19 — BUMDes, UMKM & Local Economy
 [ ] Phase 20 — Health, Education & Social Services
@@ -539,3 +539,39 @@ data tetap ada, insight skor 9 + faktor transparan + disclaimer, RLS
 
 Known issue: foto dokumentasi distribusi menyusul (butuh uploader reuse);
 indikator kesejahteraan diisi manual saat pendataan
+
+---
+
+## Phase 17 — GIS & Village Digital Twin
+
+Status: SELESAI (data layer + API + UI list; peta visual Leaflet interaktif
+menyusul sebagai penyempurnaan UI - data GeoJSON sudah siap konsumsi)
+
+Fitur:
+- Objek geospasial 8 jenis (jalan, fasilitas, rumah, lahan, air, batas,
+  titik_rawan, lainnya) dengan GeoJSON geometry (Point/LineString/Polygon)
+  dan properties bebas (kondisi, panjang, foto, dll)
+- Link ke aset (linked_asset_id) dan proposal musrenbang
+  (linked_proposal_id) - digital twin entity terhubung ke modul lain
+- Insiden lapangan 6 jenis (banjir, longsor, kebakaran, pohon_tumbang,
+  jalan_rusak, lainnya) dengan severity 4 tingkat
+- Workflow insiden: reported -> verified -> assigned -> responding ->
+  resolved -> post_report dengan note evaluasi
+- GeoJSON FeatureCollection publik via app.gis_features_public
+  (SECURITY DEFINER, tanpa data pribadi) untuk peta publik
+
+Database migration: 022_gis (gis_objects, gis_incidents,
+app.gis_features_public, RLS keduanya)
+
+API: /api/gis (GET objek+insiden, POST object/incident, PATCH workflow
+insiden dengan validasi transisi), /api/gis/public (GeoJSON publik
+tanpa login via villageId)
+
+UI: /admin/gis (daftar objek dengan filter jenis, panel insiden aktif
+dengan aksi workflow inline, 2 form modal koordinat)
+
+Tests: tests/phase17.test.mjs (4): geometry GeoJSON, workflow insiden
+lengkap, FeatureCollection publik tanpa data pribadi, RLS
+
+Known issue: peta visual interaktif (Leaflet/MapLibre) & foto before/after
+insiden menyusul; endpoint GeoJSON publik sudah siap dikonsumsi renderer
