@@ -265,3 +265,10 @@
 - Test: tests/phase22.test.mjs (4) hijau; tsc/eslint/build hijau
 - Pelajaran: tsrange untuk timestamp tanpa TZ, tstzrange untuk timestamptz;
   tangani error code 23P01 sebagai 409
+
+## 2026-09-06 — Phase 23 (AI Copilot & Automation) SELESAI
+
+- Migration 029_automation: rules + runs (idempotent engine) + ai_chat_log
+- API: /api/automation + /api/copilot (permission-scoped, audited)
+- UI: /admin/otomasi (rule builder + chat copilot)
+- Test: tests/phase23.test.mjs (5) hijau; tsc/eslint/build hijau

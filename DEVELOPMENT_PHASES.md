@@ -24,7 +24,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 20 — Health, Education & Social Services
 [x] Phase 21 — Disaster, Environment & Safety
 [x] Phase 22 — Community, Facility & Event
-[ ] Phase 23 — AI Village Copilot & Automation
+[x] Phase 23 — AI Village Copilot & Automation
 [ ] Phase 24 — Executive Analytics & Open Data
 [ ] Phase 25 — Integration, PWA, Security, Production
 
@@ -754,3 +754,42 @@ publik hanya mendatang, RLS
 
 Known issue: kalender visual bulanan & notifikasi volunteer matching
 menyusul
+
+---
+
+## Phase 23 — AI Village Copilot & Automation Engine
+
+Status: SELESAI
+
+Fitur:
+- Automation Engine: rule WHEN/IF/THEN no-code dengan 10 trigger
+  (complaint_overdue, letter_submitted/approved, contract_expiring,
+  stock_low, aid_pending, booking_requested, task_overdue, sensor_warning,
+  device_offline) dan 4 aksi (create_notification, create_task,
+  flag_warning, generate_log)
+- Engine evaluasi app.evaluate_automation_rules: scan target yang melanggar
+  rule, buat automation_runs SEKALI per target (idempotent, anti-spam via
+  NOT EXISTS check), update run_count/last_run_at
+- Run log: setiap notifikasi tercatat dengan rule, target, message, waktu
+- AI Village Copilot: rule-based intent matching (pengaduan, surat,
+  penduduk, bantuan, aset). GUARDRAIL: tiap intent cek permission user
+  (tanpa izin = tidak dijawab datanya), jawaban dari query aktual BUKAN
+  LLM generatif, semua percakapan di-audit ke ai_chat_log dengan data_scope
+  transparan, disclaimer anti-halusinasi selalu ditampilkan
+
+Database migration: 029_automation (automation_rules, automation_runs,
+ai_chat_log, app.evaluate_automation_rules, RLS)
+
+API: /api/automation (GET rules+runs, POST rule/evaluate, PATCH toggle),
+/api/copilot (POST pertanyaan, permission-scoped, audited)
+
+UI: /admin/otomasi (daftar rule dengan toggle aktif, log run, modal rule
+builder WHEN/THEN, chat modal copilot)
+
+Tests: tests/phase23.test.mjs (5): rule struktur, engine idempotent
+(fired 1x, run ke-2 = 0), kontrak expiring terdeteksi, ai_chat_log
+tersimpan, RLS
+
+Known issue: trigger letter/sensor/device menyusul di fase Smart Village;
+copilot rule-based (bukan LLM) - upgrade path ke LLM+function-calling saat
+API key tersedia dengan guardrail yang sama
