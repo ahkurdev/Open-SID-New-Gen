@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "db:up": "node scripts/db-up.mjs",
     "db:reset": "node scripts/db-reset.mjs",
-    "test": "node tests/phase1.test.mjs && node tests/auth.test.mjs && node tests/phase2.test.mjs && node tests/phase3.test.mjs && node tests/phase4.test.mjs && node tests/phase5.test.mjs && node tests/phase6.test.mjs && node tests/phase7.test.mjs && node tests/phase8.test.mjs && node tests/phase9.test.mjs && node tests/phase10.test.mjs && node tests/phase11.test.mjs && node tests/phase12.test.mjs && node tests/phase13.test.mjs && node tests/phase14.test.mjs"
+    "test": "node tests/phase1.test.mjs && node tests/auth.test.mjs && node tests/phase2.test.mjs && node tests/phase3.test.mjs && node tests/phase4.test.mjs && node tests/phase5.test.mjs && node tests/phase6.test.mjs && node tests/phase7.test.mjs && node tests/phase8.test.mjs && node tests/phase9.test.mjs && node tests/phase10.test.mjs && node tests/phase11.test.mjs && node tests/phase12.test.mjs && node tests/phase13.test.mjs && node tests/phase14.test.mjs && node tests/phase15.test.mjs"
   },
   "dependencies": {
     "next": "^15.5.0",

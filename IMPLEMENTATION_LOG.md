@@ -188,3 +188,14 @@
 - API: /api/procurement (GET, POST 5 mode, PATCH status kind=invoice|po|contract)
 - UI: /admin/pengadaan 4 tab dengan aksi inline + 4 form modal
 - Test: tests/phase14.test.mjs (5) hijau; total 80 PASS; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 15 (Asset, Inventory & Infrastructure) SELESAI
+
+- Migration 019_assets + 020_assets_rls_fix (RLS assets terlewat di 019,
+  diperbaiki via migration baru sesuai aturan immutability)
+- API: /api/assets (asset/maintenance/transfer), /api/assets/lookup publik
+- UI: /admin/aset dengan QR tag modal, scanner publik, 3 form modal
+- Test: tests/phase15.test.mjs (5) hijau; semua 16 file test lulus;
+  tsc/eslint/build hijau
+- Pelajaran: hash-check migration menahan perubahan file lama - selalu
+  buat migration baru untuk fix

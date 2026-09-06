@@ -16,7 +16,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 12 — Participatory Planning (E-Musrenbang)
 [x] Phase 13 — Finance & Budget Intelligence
 [x] Phase 14 — Procurement, Contract & Vendor
-[ ] Phase 15 — Asset, Inventory & Infrastructure
+[x] Phase 15 — Asset, Inventory & Infrastructure
 [ ] Phase 16 — Social Aid & Welfare Intelligence
 [ ] Phase 17 — GIS & Village Digital Twin
 [ ] Phase 18 — Agriculture, Livestock, Fishery
@@ -468,3 +468,38 @@ kontrak + expiring view, invoice + paid + overdue, RLS isolasi
 
 Known issue: perbandingan quotation UI & vendor performance history
 menyusul penyempurnaan
+
+---
+
+## Phase 15 — Asset, Inventory & Infrastructure
+
+Status: SELESAI
+
+Fitur:
+- Daftar aset 11 kategori (tanah, bangunan, kendaraan, peralatan, mesin,
+  jalan, jembatan, drainase, lampu, fasilitas umum, lainnya) dengan kode
+  otomatis AST/{KAT}/{SEQ} per desa
+- QR asset tag: kode unik dicetak/ditempel di aset; scan via
+  app.lookup_asset_public (SECURITY DEFINER, data minimal tanpa auth)
+- Kondisi: baik/rusak_ringan/rusak_berat dengan update manual
+- Maintenance: jadwal rutin/perbaikan/penggantian dengan biaya, status
+  scheduled->done, total biaya maintenance per aset
+- Mutasi/peminjaman/penghapusan: asset_transfers + perubahan status aset
+  (aktif/dipinjam/perbaikan/dihapus)
+- Statistik: total aset, rusak ringan/berat, total nilai aset
+- Penanggung jawab (custodian) per aset
+
+Database migration: 019_assets (assets, asset_maintenance, asset_transfers,
+app.next_asset_code, app.lookup_asset_public) + 020_assets_rls_fix
+(RLS assets terlewat di 019)
+
+API: /api/assets (GET/POST mode=asset|maintenance|transfer, PATCH kondisi
++ selesaikan maintenance), /api/assets/lookup (publik scan QR)
+
+UI: /admin/aset (statistik, filter kategori + search, QR tag modal,
+form aset/maintenance/mutasi, scanner publik di halaman)
+
+Tests: tests/phase15.test.mjs (5): kode otomatis, maintenance + biaya,
+mutasi + status, QR lookup publik, RLS isolasi
+
+Known issue: stock opname bulk & foto aset menyusul (butuh uploader reuse)
