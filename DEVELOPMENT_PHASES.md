@@ -7,7 +7,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 3 — Profil & Struktur Pemerintahan Desa
 [x] Phase 4 — Population & Family Registry
 [x] Phase 5 — Digital Document & Archive Center
-[ ] Phase 6 — Letter Service & Workflow Builder
+[x] Phase 6 — Letter Service & Workflow Builder
 [ ] Phase 7 — Citizen Portal (Super App Warga)
 [ ] Phase 8 — Front Office, Queue & Appointment
 [ ] Phase 9 — Complaint & Case Management
@@ -165,3 +165,41 @@ Tests: tests/phase5.test.mjs (6): nomor otomatis, verifikasi QR,
 version history, expiry flag, RLS isolasi, soft delete effect
 
 Known issue: preview inline & check-in/check-out multi-user menyusul
+
+---
+
+## Phase 6 — Letter Service & No-Code Workflow Builder
+
+Status: SELESAI
+
+Fitur:
+- Letter Template Builder (no-code): admin buat jenis surat baru dengan
+  form schema dinamis (text/textarea/number/date/select, required flag,
+  options), alur approval configurable (operator/sekdes/kades, urutan
+  bebas 1-5 tahap), SLA per jenis
+- Template bawaan ter-seed: Surat Keterangan Domisili, Surat Pengantar
+- Workflow engine: submit -> advance per tahap (permission dicek per
+  step: letter.process/approve/sign) -> approved -> sign (Kades, nomor
+  surat otomatis {CODE}/{TAHUN}/{SEQ}) -> issued
+- Reject dengan alasan wajib tercatat; cancel untuk pemohon/prosesor
+- Timeline lengkap: semua aksi (submit/advance/reject/sign/issue/cancel)
+  tersimpan di letter_actions dengan actor + timestamp + notes
+- Notifikasi otomatis ke pemroses tahap berikutnya (in-app)
+- Verifikasi publik surat terbit via kode (app.verify_letter SECURITY
+  DEFINER, tanpa login)
+- SLA tracking: sla_due_at dihitung dari template saat submit
+
+Database migration: 010_letters (letter_templates, letters, letter_actions,
+app.next_letter_number, app.verify_letter, seed 2 template)
+
+API: /api/letter-templates (GET/POST/PATCH), /api/letters (GET/POST submit/
+PATCH actions), /api/letters/[id] (detail + timeline), /api/verify-letter
+
+UI: /admin/surat (daftar + filter status, ajukan surat dengan form dinamis
+dari schema, detail + timeline + aksi sesuai status, template builder)
+
+Tests: tests/phase6.test.mjs (7): template seed, builder schema, workflow
+end-to-end submit->issue + nomor otomatis, verifikasi, reject + alasan,
+SLA, RLS isolasi
+
+Known issue: generate PDF surat & tanda tangan digital menyusul (fase lanjut)

@@ -87,3 +87,18 @@
   tsc/eslint/build hijau
 - Catatan: psql 16.9 - RETURNING expression dengan function call tidak
   dievaluasi inline; pattern: panggil fungsi dulu lalu pakai hasilnya
+
+## 2026-09-06 — Phase 6 (Letter Service & No-Code Workflow) SELESAI
+
+- Migration 010_letters: letter_templates (form_schema jsonb, approval_steps
+  array, sla_days), letters (status workflow, current_step, sla_due_at,
+  verification_code), letter_actions (timeline), app.next_letter_number,
+  app.verify_letter; seed template domisili + pengantar
+- Workflow: submit -> advance (permission per step) -> approved -> sign
+  (Kades + nomor otomatis) -> issued; reject + cancel dengan alasan
+- Notifikasi in-app ke pemroses tahap berikutnya otomatis
+- API: /api/letter-templates, /api/letters (submit + actions), /api/letters/[id],
+  /api/verify-letter (publik)
+- UI: /admin/surat dengan Template Builder no-code (form field editor +
+  approval steps + SLA), form pengajuan dinamis dari schema, detail timeline
+- Test: tests/phase6.test.mjs (7) hijau; total 41 PASS; tsc/eslint/build hijau
