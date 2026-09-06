@@ -137,3 +137,15 @@
   sesuai status, assignment ke staff, rating pelapor
 - Notifikasi ke staff saat ada pengaduan baru, ke petugas saat ditugaskan
 - Test: tests/phase9.test.mjs (5) hijau; total 56 PASS; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 10 (Public Website & Open Government) SELESAI
+
+- Migration 014_public_website: posts (4 jenis, slug, draft/published/
+  archived, scheduled_at), post_revisions, gallery_albums/gallery_photos;
+  app.get_public_posts + app.get_public_stats (SECURITY DEFINER, GRANT PUBLIC)
+- API: /api/posts (CMS CRUD + revisi otomatis), /api/open-data (agregat
+  JSON aman), /api/public/profile (profil desa + pejabat + konten)
+- UI: /admin/web CMS client; nav sidebar + palette (Antrean, Website Publik)
+- Open data: total penduduk/L/P/KK, pengaduan selesai, surat terbit -
+  tanpa PII sama sekali
+- Test: tests/phase10.test.mjs (5) hijau; total 61 PASS; tsc/eslint/build hijau

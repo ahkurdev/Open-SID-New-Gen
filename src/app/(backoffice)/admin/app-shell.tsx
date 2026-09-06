@@ -37,6 +37,7 @@ const NAV_SECTIONS: NavSection[] = [
   {
     title: "Desa & Ekonomi",
     items: [
+      { href: "/admin/web", label: "Website Publik", icon: <Home className="h-4 w-4" /> },
       { href: "/admin/gis", label: "Peta Desa", icon: <MapPin className="h-4 w-4" /> },
       { href: "/admin/pertanian", label: "Pertanian", icon: <Sprout className="h-4 w-4" /> },
       { href: "/admin/umkm", label: "UMKM & BUMDes", icon: <Store className="h-4 w-4" /> },
@@ -61,6 +62,8 @@ const COMMANDS = [
   { href: "/admin/penduduk", label: "Data Penduduk", group: "Navigasi" },
   { href: "/admin/surat", label: "Layanan Surat", group: "Navigasi" },
   { href: "/admin/pengaduan", label: "Pengaduan", group: "Navigasi" },
+  { href: "/admin/antrean", label: "Antrean", group: "Navigasi" },
+  { href: "/admin/web", label: "Website Publik", group: "Navigasi" },
   { href: "/admin/keuangan", label: "Keuangan", group: "Navigasi" },
   { href: "/admin/aset", label: "Aset", group: "Navigasi" },
   { href: "/admin/bantuan", label: "Bantuan Sosial", group: "Navigasi" },

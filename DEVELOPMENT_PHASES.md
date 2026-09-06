@@ -11,7 +11,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 7 — Citizen Portal (Super App Warga)
 [x] Phase 8 — Front Office, Queue & Appointment
 [x] Phase 9 — Complaint & Case Management
-[ ] Phase 10 — Public Website & Open Government
+[x] Phase 10 — Public Website & Open Government
 [ ] Phase 11 — Government Workspace
 [ ] Phase 12 — Participatory Planning (E-Musrenbang)
 [ ] Phase 13 — Finance & Budget Intelligence
@@ -307,3 +307,33 @@ Tests: tests/phase9.test.mjs (5): SLA seed, submit anonim + ticket,
 workflow lengkap + rating, overdue view, RLS isolasi
 
 Known issue: upload foto before/after & GPS picker map menyusul (fase GIS)
+
+---
+
+## Phase 10 — Public Website & Open Government
+
+Status: SELESAI
+
+Fitur:
+- CMS konten publik: berita, artikel, pengumuman, agenda dengan
+  draft/publish/archived + slug otomatis unik per desa
+- Post revisions: setiap edit konten tersimpan sebagai revisi
+- Fungsi publik SECURITY DEFINER: app.get_public_posts (hanya published,
+  terjadwal), app.get_public_stats (agregat tanpa PII: total penduduk,
+  L/P, KK, pengaduan selesai, surat terbit)
+- Open Data API: /api/open-data (JSON agregat aman), /api/public/profile
+  (profil desa + pejabat aktif via view tanpa PII + konten terbit)
+- Transparansi Center: statistik desa terbuka tanpa membocorkan data
+  pribadi (nama/NIK/alamat tidak pernah keluar)
+- UI admin: /admin/web untuk kelola konten (tulis, terbitkan, arsipkan,
+  hapus) dengan permission public.publish
+
+Database migration: 014_public_website (posts, post_revisions,
+gallery_albums, gallery_photos, app.get_public_posts, app.get_public_stats)
+
+API: /api/posts (CRUD CMS), /api/open-data, /api/public/profile (publik)
+
+Tests: tests/phase10.test.mjs (5): slug otomatis, draft tak tampil publik,
+stats agregat tanpa PII, revisi tercatat, RLS isolasi
+
+Known issue: galeri foto UI & jadwal publish (scheduled_at) menyusul
