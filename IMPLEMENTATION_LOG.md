@@ -159,3 +159,13 @@
   /api/activity-reports (rekap bulanan 12 bulan)
 - UI: /admin/workspace tab Tugas + Laporan Kegiatan
 - Test: tests/phase11.test.mjs (4) hijau; total 65 PASS; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 12 (E-Musrenbang) SELESAI
+
+- Migration 016_musrenbang: proposals (9 kategori, estimasi biaya/manfaat,
+  urgency, vote_count, priority_rank, workflow 9 status), proposal_votes
+  (1 user 1 vote UNIQUE), view public_proposals tanpa identitas
+- API: /api/proposals (submit + 8 aksi workflow + audit), /api/proposals/vote
+- UI: /admin/musrenbang (statistik, filter, aksi inline, vote, form usulan
+  dengan disclaimer voting = input musyawarah)
+- Test: tests/phase12.test.mjs (5) hijau; total 70 PASS; tsc/eslint/build hijau

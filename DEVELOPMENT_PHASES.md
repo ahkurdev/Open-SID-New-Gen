@@ -13,7 +13,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 9 — Complaint & Case Management
 [x] Phase 10 — Public Website & Open Government
 [x] Phase 11 — Government Workspace
-[ ] Phase 12 — Participatory Planning (E-Musrenbang)
+[x] Phase 12 — Participatory Planning (E-Musrenbang)
 [ ] Phase 13 — Finance & Budget Intelligence
 [ ] Phase 14 — Procurement, Contract & Vendor
 [ ] Phase 15 — Asset, Inventory & Infrastructure
@@ -368,3 +368,36 @@ Tests: tests/phase11.test.mjs (4): task + assign + notifikasi, recurring
 instance, laporan + rekap bulanan, RLS isolasi
 
 Known issue: checklist subtask UI & disposisi surat menyusul
+
+---
+
+## Phase 12 — Participatory Planning (E-Musrenbang)
+
+Status: SELESAI
+
+Fitur:
+- Usulan pembangunan warga: 9 kategori (jalan, drainase, jembatan,
+  lampu, pendidikan, ekonomi, fasilitas umum, kesehatan, lainnya)
+  dengan lokasi, estimasi biaya, estimasi penerima manfaat, urgensi
+- Nomor usulan otomatis MUS/{TAHUN}/{SEQ} per desa per tahun
+- Usulan anonim didukung; view public_proposals tanpa identitas
+  pengusul untuk transparansi
+- Voting dukungan warga: 1 user 1 suara per usulan (UNIQUE), tampil
+  sebagai "input musyawarah" - bukan penentu otomatis keputusan
+- Workflow lengkap: submitted -> verified -> in_musrenbang ->
+  prioritized (dengan rank) -> approved -> planned -> in_progress ->
+  completed (atau rejected dengan alasan)
+- Progres publik bisa dilihat lewat status usulan
+
+Database migration: 016_musrenbang (proposals, proposal_votes,
+view public_proposals)
+
+API: /api/proposals (GET/POST/PATCH 8 aksi), /api/proposals/vote
+
+UI: /admin/musrenbang (statistik, filter status, aksi inline per status,
+vote button, form usulan dengan opsi anonim + disclaimer voting)
+
+Tests: tests/phase12.test.mjs (5): nomor otomatis, vote 1x1 + duplikat
+ditolak, workflow 7 transisi, view publik tanpa identitas, RLS isolasi
+
+Known issue: peta lokasi usulan menyusul (fase GIS)
