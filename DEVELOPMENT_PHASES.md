@@ -9,7 +9,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 5 — Digital Document & Archive Center
 [x] Phase 6 — Letter Service & Workflow Builder
 [x] Phase 7 — Citizen Portal (Super App Warga)
-[ ] Phase 8 — Front Office, Queue & Appointment
+[x] Phase 8 — Front Office, Queue & Appointment
 [ ] Phase 9 — Complaint & Case Management
 [ ] Phase 10 — Public Website & Open Government
 [ ] Phase 11 — Government Workspace
@@ -237,3 +237,38 @@ approve menerapkan perubahan + timeline, RLS koreksi per user, RLS resident
 
 Known issue: pengajuan surat warga belum pakai form schema dinamis penuh
 (hanya template tanpa field custom) - menyusul penyempurnaan
+
+---
+
+## Phase 8 — Front Office, Queue & Appointment
+
+Status: SELESAI
+
+Fitur:
+- Service types: kategori layanan front office dengan estimasi durasi
+  (avg_minutes), ter-seed 4 layanan default
+- Appointment booking: pilih layanan + tanggal + slot; slot duplikat
+  ditolak via UNIQUE constraint; status booked/checked_in/served/no_show/
+  cancelled
+- Digital queue (walk-in): tiket nomor urut otomatis per desa per hari
+  (atomic MAX+1), status workflow waiting -> called -> serving -> served
+  (atau skipped)
+- Counter management: loket dicatat saat panggil/layani
+- Dashboard antrean harian: total tiket, aktif, selesai, rata-rata durasi
+  layanan (menit), filter per tanggal
+- Aksi petugas: Panggil / Layani / Selesai / Lewati dengan validasi
+  transisi status + audit trail
+
+Database migration: 012_front_office (service_types, appointments,
+queue_tickets + seed layanan)
+
+API: /api/queue (GET dashboard harian, POST mode=book|walkin,
+PATCH aksi tiket)
+
+UI: /admin/antrean (statistik + daftar antrean + aksi inline + walk-in)
+
+Tests: tests/phase8.test.mjs (6): seed layanan, booking + slot duplikat,
+tiket urut, workflow status, statistik harian, RLS isolasi
+
+Known issue: display layar antrean (kiosk/TV) & QR check-in menyusul
+(fase kiosk/field mode)

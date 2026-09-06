@@ -114,3 +114,14 @@
 - UI: /warga portal terpisah (data diri, KK + anggota, kartu digital
   dengan card_code, pengajuan surat, tracking status, riwayat koreksi)
 - Test: tests/phase7.test.mjs (4) hijau; total 45 PASS; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 8 (Front Office, Queue & Appointment) SELESAI
+
+- Migration 012_front_office: service_types (4 seed layanan), appointments
+  (UNIQUE slot per layanan/tanggal/jam), queue_tickets (nomor urut atomic
+  per desa/hari, workflow status + counter)
+- API: /api/queue (GET harian + stats, POST book/walkin, PATCH
+  call/serve/finish/skip dengan validasi transisi + audit)
+- UI: /admin/antrean dengan StatCard harian, daftar tiket + aksi inline,
+  form walk-in, filter tanggal
+- Test: tests/phase8.test.mjs (6) hijau; total 51 PASS; tsc/eslint/build hijau

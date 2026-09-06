@@ -44,9 +44,9 @@ inisiasi / DEVELOPMENT_PHASES.md).
 
 ## Status Saat Ini
 
-- Fase aktif: Phase 8 (Front Office, Queue & Appointment)
-- Fase selesai: 1-7
-- Total test: 45 PASS (8 file test, idempotent)
+- Fase aktif: Phase 9 (Complaint & Case Management)
+- Fase selesai: 1-8
+- Total test: 51 PASS (9 file test, idempotent)
 - Progress: `DEVELOPMENT_PHASES.md`
 
 ## Catatan Teknis Penting
