@@ -19,6 +19,7 @@ const NAV_SECTIONS: NavSection[] = [
     title: "Utama",
     items: [
       { href: "/admin", label: "Dashboard", icon: <LayoutDashboard className="h-4 w-4" /> },
+      { href: "/admin/profil", label: "Profil Desa", icon: <Building2 className="h-4 w-4" /> },
       { href: "/admin/penduduk", label: "Penduduk", icon: <Users className="h-4 w-4" /> },
       { href: "/admin/surat", label: "Surat", icon: <FileText className="h-4 w-4" /> },
       { href: "/admin/pengaduan", label: "Pengaduan", icon: <Activity className="h-4 w-4" /> },
@@ -56,6 +57,7 @@ const NAV_SECTIONS: NavSection[] = [
 
 const COMMANDS = [
   { href: "/admin", label: "Dashboard", group: "Navigasi" },
+  { href: "/admin/profil", label: "Profil Desa", group: "Navigasi" },
   { href: "/admin/penduduk", label: "Data Penduduk", group: "Navigasi" },
   { href: "/admin/surat", label: "Layanan Surat", group: "Navigasi" },
   { href: "/admin/pengaduan", label: "Pengaduan", group: "Navigasi" },

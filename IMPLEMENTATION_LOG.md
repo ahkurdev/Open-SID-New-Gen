@@ -43,3 +43,15 @@
 - Test: tests/phase2.test.mjs (6) hijau; tsc/eslint/build hijau
 - Fix: forgotPasswordAction dipindah ke password-actions.ts (auth-actions tidak
   boleh ekspor non-async seal "use server" campuran)
+
+## 2026-09-06 — Phase 3 (Profil & Struktur Pemerintahan Desa) SELESAI
+
+- Migration 007_government_structure: kolom profil desa (vision/mission/history/
+  area_km2), tabel officials (4 kategori) + official_terms (sejarah jabatan),
+  view public_officials tanpa PII untuk publik
+- API: /api/village-profile (GET/PATCH, permission settings.manage + audit),
+  /api/officials (GET/POST/PATCH; PATCH newTerm mengarsipkan jabatan lama)
+- UI: /admin/profil tab Profil Desa / Perangkat & Lembaga / Bagan Organisasi
+  (OrgChart: Kades -> Sekdes -> Kaur/Kasi, Wilayah, BPD, Lembaga)
+- Sidebar + command palette: tambah nav Profil Desa
+- Test: tests/phase3.test.mjs (5) hijau; tsc/eslint/build hijau; 21 PASS total

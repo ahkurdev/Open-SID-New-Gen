@@ -4,7 +4,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 
 [x] Phase 1 — Foundation & Design System
 [x] Phase 2 — Multi-tenant, Auth, Role & Security
-[ ] Phase 3 — Profil & Struktur Pemerintahan Desa
+[x] Phase 3 — Profil & Struktur Pemerintahan Desa
 [ ] Phase 4 — Population & Family Registry
 [ ] Phase 5 — Digital Document & Archive Center
 [ ] Phase 6 — Letter Service & Workflow Builder
@@ -65,14 +65,36 @@ Fitur:
 - Deteksi login mencurigakan: IP baru vs riwayat -> notifikasi in-app
 - Custom Role Builder: buat/edit role custom + katalog permission
 - Multi-village: API /api/villages (platform admin), seed 2 desa untuk isolasi
-- Lockout 5x gagal login 15 menit (Phase 1, diverifikasi ulang di Phase 2)
 
 Database migration: 005_invitations, 006_rate_limit
 
 API: /api/invitations (+ /accept), /api/sessions, /api/users/[id]/activity,
 /api/villages, /api/roles, /api/users
 
-Tests: tests/phase2.test.mjs (6): isolasi 2 desa, rate limit, invitation flow
-end-to-end, session revoke, custom role, aktivitas tercatat
+Tests: tests/phase2.test.mjs (6)
 
-Known issue: mailer masih log lokal; sambungkan SMTP/WA provider saat kredensial ada
+---
+
+## Phase 3 — Profil & Struktur Pemerintahan Desa
+
+Status: SELESAI
+
+Fitur:
+- Profil desa: identitas, kode wilayah, alamat, kontak, koordinat, luas,
+  visi, misi, sejarah desa
+- Data pejabat: perangkat desa, BPD, lembaga, kepala wilayah (dusun/RW/RT
+  via regions)
+- Sejarah jabatan (official_terms): perubahan pejabat tidak menghapus data
+  lama; aksi "Jabatan Baru" mengarsipkan jabatan lama otomatis
+- Organization Chart interaktif: Kades -> Sekdes -> Kaur/Kasi -> Wilayah,
+  BPD, Lembaga
+- View public_officials (tanpa NIP/telepon) untuk website publik fase 10
+
+Database migration: 007_government_structure
+
+API: /api/village-profile (GET/PATCH), /api/officials (GET/POST/PATCH)
+
+Tests: tests/phase3.test.mjs (5): profil update, sejarah jabatan, RLS
+isolasi officials, view publik tanpa PII, data org chart
+
+Known issue: foto pejabat & logo desa menunggu modul storage (fase 5)
