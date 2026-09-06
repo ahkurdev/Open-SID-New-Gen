@@ -1,0 +1,11 @@
+node_modules/
+.next/
+out/
+vendor/pgdata/
+vendor/logs/
+vendor/pwfile.tmp
+.env*.local
+.env
+*.log
+tsconfig.tsbuildinfo
+next-env.d.ts
