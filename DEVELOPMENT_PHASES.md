@@ -20,7 +20,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 16 — Social Aid & Welfare Intelligence
 [x] Phase 17 — GIS & Village Digital Twin
 [x] Phase 18 — Agriculture, Livestock, Fishery
-[ ] Phase 19 — BUMDes, UMKM & Local Economy
+[x] Phase 19 — BUMDes, UMKM & Local Economy
 [ ] Phase 20 — Health, Education & Social Services
 [ ] Phase 21 — Disaster, Environment & Safety
 [ ] Phase 22 — Community, Facility & Event
@@ -606,3 +606,40 @@ summary agregat, RLS
 
 Known issue: sensor IoT (soil moisture dll) akan menyusul di fase Smart
 Village; tidak ada klaim prediksi panen
+
+---
+
+## Phase 19 — BUMDes, UMKM & Local Economy Hub
+
+Status: SELESAI
+
+Fitur:
+- UMKM: 7 kategori, link owner ke penduduk (opsional), kontak, visibility
+  publik toggle, featured
+- Produk UMKM: harga, satuan, stok, featured
+- Marketplace modular: order request dari katalog publik (tanpa login),
+  workflow requested -> contacted -> completed/cancelled
+- Katalog publik via app.umkm_catalog_public (SECURITY DEFINER): hanya
+  data usaha, TANPA data pribadi owner, hanya UMKM is_public=true
+- BUMDes: unit usaha per tahun (UNIQUE unit+tahun), modal/pendapatan/beban,
+  laba terhitung, totals agregat
+- Job & Skill Center: lowongan (open/closed), skill warga dengan consent
+  is_public_profile (tanpa izin tidak tampil), pelatihan + kuota + jumlah
+  terdaftar
+
+Database migration: 024_economy (umkm, umkm_products, product_orders,
+bumdes_units, job_listings, resident_skills, trainings,
+training_registrations, app.umkm_catalog_public, RLS semua tabel)
+
+API: /api/economy (view=umkm|bumdes|jobs, POST umkm/product/order/bumdes,
+PATCH order_status/toggle_featured), /api/economy/public-catalog
+
+UI: /admin/ekonomi 3 tab (UMKM+pesanan, BUMDes stat cards, Jobs/Skills/
+Trainings)
+
+Tests: tests/phase19.test.mjs (5): katalog publik + privasi owner,
+order workflow, BUMDes profit + UNIQUE, job/skill/training, RLS
+
+Known issue: foto produk & WhatsApp checkout link menyusul (butuh
+uploader + WA gateway opsional); registrasi pelatihan via portal warga
+menyusul

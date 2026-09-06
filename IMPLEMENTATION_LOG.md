@@ -226,3 +226,13 @@
 - API: /api/farms (farm + harvest)
 - UI: /admin/produksi dengan form dinamis per sektor
 - Test: tests/phase18.test.mjs (4) hijau; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 19 (BUMDes, UMKM & Local Economy) SELESAI
+
+- Migration 024_economy: 7 tabel ekonomi + katalog publik SECURITY DEFINER
+- API: /api/economy (3 view + 4 mode POST + 2 PATCH),
+  /api/economy/public-catalog
+- UI: /admin/ekonomi 3 tab
+- Test: tests/phase19.test.mjs (5) hijau; tsc/eslint/build hijau
+- Pelajaran: fungsi SQL yang return jsonb_agg bisa NULL saat 0 baris -
+  selalu COALESCE di caller test
