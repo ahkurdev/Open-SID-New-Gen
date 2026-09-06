@@ -149,3 +149,13 @@
 - Open data: total penduduk/L/P/KK, pengaduan selesai, surat terbit -
   tanpa PII sama sekali
 - Test: tests/phase10.test.mjs (5) hijau; total 61 PASS; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 11 (Government Workspace) SELESAI
+
+- Migration 015_workspace: tasks (prioritas, recurring, parent_task_id,
+  completed_at), activity_reports (dedupe UNIQUE user/date/activity),
+  meetings (agenda/notulen/keputusan/peserta)
+- API: /api/tasks (PATCH done -> auto-create instance recurring berikutnya),
+  /api/activity-reports (rekap bulanan 12 bulan)
+- UI: /admin/workspace tab Tugas + Laporan Kegiatan
+- Test: tests/phase11.test.mjs (4) hijau; total 65 PASS; tsc/eslint/build hijau

@@ -12,7 +12,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 8 — Front Office, Queue & Appointment
 [x] Phase 9 — Complaint & Case Management
 [x] Phase 10 — Public Website & Open Government
-[ ] Phase 11 — Government Workspace
+[x] Phase 11 — Government Workspace
 [ ] Phase 12 — Participatory Planning (E-Musrenbang)
 [ ] Phase 13 — Finance & Budget Intelligence
 [ ] Phase 14 — Procurement, Contract & Vendor
@@ -337,3 +337,34 @@ Tests: tests/phase10.test.mjs (5): slug otomatis, draft tak tampil publik,
 stats agregat tanpa PII, revisi tercatat, RLS isolasi
 
 Known issue: galeri foto UI & jadwal publish (scheduled_at) menyusul
+
+---
+
+## Phase 11 — Government Workspace
+
+Status: SELESAI
+
+Fitur:
+- Task management: buat/tugaskan/complete tugas dengan prioritas
+  (low/normal/high/urgent), deadline, overdue marker, notifikasi ke PIC
+- Recurring task: harian/mingguan/bulanan - saat selesai, instance
+  berikutnya dibuat otomatis dengan due date bergeser
+- Laporan Kegiatan Harian: petugas catat kegiatan, lokasi, deskripsi,
+  output, durasi jam; dedupe per user/tanggal/aktivitas
+- Rekap bulanan otomatis: total kegiatan, total jam, jumlah petugas
+  aktif per bulan (12 bulan terakhir)
+- Tabel meetings (agenda, notulen, keputusan, peserta) tersedia untuk
+  notulen rapat fase lanjut
+
+Database migration: 015_workspace (tasks, activity_reports, meetings)
+
+API: /api/tasks (GET + stats, POST, PATCH dengan auto-recurring),
+/api/activity-reports (GET + rekap bulanan, POST)
+
+UI: /admin/workspace tab Tugas (statistik + daftar + complete) dan
+Laporan Kegiatan (daftar + rekap bulanan + form input)
+
+Tests: tests/phase11.test.mjs (4): task + assign + notifikasi, recurring
+instance, laporan + rekap bulanan, RLS isolasi
+
+Known issue: checklist subtask UI & disposisi surat menyusul
