@@ -21,7 +21,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 17 — GIS & Village Digital Twin
 [x] Phase 18 — Agriculture, Livestock, Fishery
 [x] Phase 19 — BUMDes, UMKM & Local Economy
-[ ] Phase 20 — Health, Education & Social Services
+[x] Phase 20 — Health, Education & Social Services
 [ ] Phase 21 — Disaster, Environment & Safety
 [ ] Phase 22 — Community, Facility & Event
 [ ] Phase 23 — AI Village Copilot & Automation
@@ -643,3 +643,39 @@ order workflow, BUMDes profit + UNIQUE, job/skill/training, RLS
 Known issue: foto produk & WhatsApp checkout link menyusul (butuh
 uploader + WA gateway opsional); registrasi pelatihan via portal warga
 menyusul
+
+---
+
+## Phase 20 — Health, Education & Social Services
+
+Status: SELESAI
+
+Fitur:
+- Program kesehatan 6 jenis (posyandu, imunisasi, kesehatan_ibu,
+  kesehatan_lansia, sanitasi, lainnya) dengan jadwal + lokasi
+- Kunjungan kegiatan: jumlah peserta + catatan umum. PRIVACY BY DESIGN:
+  TIDAK ada kolom diagnosis/rekam medis - data kesehatan individu minimal
+- Sekolah 7 jenjang (paud s.d. smk) dengan NPSN, kepala sekolah, jumlah
+  siswa/guru
+- Beasiswa: program dengan penyedia + kuota + periode, workflow pendaftar
+  candidate -> verified -> accepted -> awarded (atau rejected + alasan)
+- Scholarship Matching (explainable): app.scholarship_candidates skor
+  transparan (risiko putus sekolah x4, tanpa penghasilan x3, single
+  parent x2, anak usia sekolah x1) + faktor ditampilkan + disclaimer
+  wajib verifikasi. BUKAN penetapan penerima.
+
+Database migration: 025_health_education (health_programs, health_visits,
+schools, scholarships, scholarship_applications,
+app.scholarship_candidates, RLS semua)
+
+API: /api/services (view=health|education, POST 5 mode, PATCH review
+beasiswa), /api/services/scholarship-insight
+
+UI: /admin/layanan 2 tab (kartu program kesehatan + catat kegiatan,
+sekolah + beasiswa + pendaftar + modal kandidat explainable)
+
+Tests: tests/phase20.test.mjs (4): kunjungan tanpa kolom diagnosis,
+workflow beasiswa + duplikat, insight skor 9 + disclaimer, RLS
+
+Known issue: pendaftaran beasiswa via portal warga & statistik agregat
+publik menyusul

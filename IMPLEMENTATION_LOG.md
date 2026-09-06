@@ -236,3 +236,12 @@
 - Test: tests/phase19.test.mjs (5) hijau; tsc/eslint/build hijau
 - Pelajaran: fungsi SQL yang return jsonb_agg bisa NULL saat 0 baris -
   selalu COALESCE di caller test
+
+## 2026-09-06 — Phase 20 (Health, Education & Social Services) SELESAI
+
+- Migration 025_health_education: health_programs, health_visits (tanpa
+  kolom medis - privacy by design), schools, scholarships,
+  scholarship_applications, app.scholarship_candidates, RLS
+- API: /api/services + /api/services/scholarship-insight
+- UI: /admin/layanan 2 tab
+- Test: tests/phase20.test.mjs (4) hijau; tsc/eslint/build hijau
