@@ -179,3 +179,12 @@
 - UI: /admin/keuangan dengan progress bar realisasi per pos, burn rate,
   tren bulanan, panel anomali dengan disclaimer keputusan manusia
 - Test: tests/phase13.test.mjs (5) hijau; total 75 PASS; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 14 (Procurement, Contract & Vendor) SELESAI
+
+- Migration 018_procurement: vendors (score + blacklist), procurement_requests,
+  vendor_quotes, purchase_orders, contracts, invoices; view expiring_contracts;
+  RLS dibuat via DO block dinamis untuk 6 tabel
+- API: /api/procurement (GET, POST 5 mode, PATCH status kind=invoice|po|contract)
+- UI: /admin/pengadaan 4 tab dengan aksi inline + 4 form modal
+- Test: tests/phase14.test.mjs (5) hijau; total 80 PASS; tsc/eslint/build hijau

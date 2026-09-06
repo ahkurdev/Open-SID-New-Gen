@@ -15,7 +15,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 11 — Government Workspace
 [x] Phase 12 — Participatory Planning (E-Musrenbang)
 [x] Phase 13 — Finance & Budget Intelligence
-[ ] Phase 14 — Procurement, Contract & Vendor
+[x] Phase 14 — Procurement, Contract & Vendor
 [ ] Phase 15 — Asset, Inventory & Infrastructure
 [ ] Phase 16 — Social Aid & Welfare Intelligence
 [ ] Phase 17 — GIS & Village Digital Twin
@@ -434,3 +434,37 @@ Tests: tests/phase13.test.mjs (5): budget upsert, anomaly duplikat,
 anomaly lonjakan, realisasi terhitung, RLS isolasi
 
 Known issue: import ekstrak Siskeudes & lampiran dokumen transaksi menyusul
+
+---
+
+## Phase 14 — Procurement, Contract & Vendor
+
+Status: SELESAI
+
+Fitur:
+- Vendor registry: kontak, NPWP, rekening, performance score 0-5,
+  blacklist flag, nama UNIQUE per desa
+- Purchase Order: nomor otomatis PO/{TAHUN}/{SEQ}, workflow open ->
+  delivered -> completed (atau cancelled), terhubung vendor
+- Kontrak: nomor otomatis KTR/{TAHUN}/{SEQ}, periode start/end, view
+  expiring_contracts (aktif <= 30 hari ke depan) untuk reminder
+- Invoice: nomor otomatis INV/{TAHUN}/{SEQ}, dibuat dari PO, status
+  unpaid/paid (paid_at otomatis), overdue flag saat lewat jatuh tempo
+- Vendor quotes: kumpulkan penawaran per permintaan pengadaan
+- Statistik: PO aktif, kontrak aktif, invoice belum bayar
+
+Database migration: 018_procurement (vendors, procurement_requests,
+vendor_quotes, purchase_orders, contracts, invoices, expiring_contracts
+view, RLS dinamis via DO block)
+
+API: /api/procurement (GET semua, POST mode=vendor|quote|po|contract|
+invoice, PATCH status per kind)
+
+UI: /admin/pengadaan tab PO/Kontrak/Invoice/Vendor dengan aksi status
+inline + form masing-masing
+
+Tests: tests/phase14.test.mjs (5): vendor + duplikat, PO + nomor,
+kontrak + expiring view, invoice + paid + overdue, RLS isolasi
+
+Known issue: perbandingan quotation UI & vendor performance history
+menyusul penyempurnaan
