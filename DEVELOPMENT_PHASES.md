@@ -19,7 +19,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 15 — Asset, Inventory & Infrastructure
 [x] Phase 16 — Social Aid & Welfare Intelligence
 [x] Phase 17 — GIS & Village Digital Twin
-[ ] Phase 18 — Agriculture, Livestock, Fishery
+[x] Phase 18 — Agriculture, Livestock, Fishery
 [ ] Phase 19 — BUMDes, UMKM & Local Economy
 [ ] Phase 20 — Health, Education & Social Services
 [ ] Phase 21 — Disaster, Environment & Safety
@@ -575,3 +575,34 @@ lengkap, FeatureCollection publik tanpa data pribadi, RLS
 
 Known issue: peta visual interaktif (Leaflet/MapLibre) & foto before/after
 insiden menyusul; endpoint GeoJSON publik sudah siap dikonsumsi renderer
+
+---
+
+## Phase 18 — Agriculture, Livestock, Fishery
+
+Status: SELESAI
+
+Fitur:
+- Unit usaha produksi 3 sektor: pertanian (komoditas, luas lahan, musim
+  tanam), peternakan (jenis + jumlah ternak), perikanan (jenis ikan,
+  jumlah kolam, produksi)
+- Pengelola bisa di-link ke data penduduk (resident_id) atau nama manual
+- Catat panen: riwayat farm_harvests + update last_harvest di unit usaha
+- Kendala usaha tani tercatat per unit
+- Food security summary: view agregat per sektor (jumlah unit, total
+  lahan, total ternak, total produksi)
+- Link lokasi ke GIS (location_gis_id) untuk integrasi digital twin
+
+Database migration: 023_agriculture (farms, farm_harvests,
+food_security_summary view, RLS)
+
+API: /api/farms (GET list+summary, POST farm/harvest)
+
+UI: /admin/produksi (stat card per sektor, tabel dengan filter sektor,
+form dinamis per sektor, modal catat panen)
+
+Tests: tests/phase18.test.mjs (4): unit 3 sektor, panen + last_harvest,
+summary agregat, RLS
+
+Known issue: sensor IoT (soil moisture dll) akan menyusul di fase Smart
+Village; tidak ada klaim prediksi panen

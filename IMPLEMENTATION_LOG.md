@@ -218,3 +218,11 @@
 - API: /api/gis + /api/gis/public
 - UI: /admin/gis dengan panel insiden + workflow inline
 - Test: tests/phase17.test.mjs (4) hijau; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 18 (Agriculture, Livestock, Fishery) SELESAI
+
+- Migration 023_agriculture: farms (3 sektor), farm_harvests,
+  food_security_summary view, RLS
+- API: /api/farms (farm + harvest)
+- UI: /admin/produksi dengan form dinamis per sektor
+- Test: tests/phase18.test.mjs (4) hijau; tsc/eslint/build hijau
