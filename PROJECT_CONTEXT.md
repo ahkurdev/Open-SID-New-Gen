@@ -44,5 +44,15 @@ inisiasi / DEVELOPMENT_PHASES.md).
 
 ## Status Saat Ini
 
-- Fase aktif: Phase 2 (Multi-tenant, Auth, Role & Security)
+- Fase aktif: Phase 7 (Citizen Portal)
+- Fase selesai: 1-6
+- Total test: 41 PASS (7 file test, idempotent)
 - Progress: `DEVELOPMENT_PHASES.md`
+
+## Catatan Teknis Penting
+
+- psql RETURNING dengan function call tidak dievaluasi inline di PG16; panggil fungsi dulu
+- Halaman publik tanpa auth: /verify (dokumen), verify-letter API
+- Permission mapping workflow surat: operator=letter.process, sekdes=letter.approve, kades=letter.sign
+- Storage file: vendor/storage/documents/{village_id}/{doc_id}/v{N}_{filename}
+- vendor/ wajib di .gitignore (binary pgAdmin 191MB ditolak GitHub)
