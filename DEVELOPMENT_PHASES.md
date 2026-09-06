@@ -17,7 +17,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 13 — Finance & Budget Intelligence
 [x] Phase 14 — Procurement, Contract & Vendor
 [x] Phase 15 — Asset, Inventory & Infrastructure
-[ ] Phase 16 — Social Aid & Welfare Intelligence
+[x] Phase 16 — Social Aid & Welfare Intelligence
 [ ] Phase 17 — GIS & Village Digital Twin
 [ ] Phase 18 — Agriculture, Livestock, Fishery
 [ ] Phase 19 — BUMDes, UMKM & Local Economy
@@ -503,3 +503,39 @@ Tests: tests/phase15.test.mjs (5): kode otomatis, maintenance + biaya,
 mutasi + status, QR lookup publik, RLS isolasi
 
 Known issue: stock opname bulk & foto aset menyusul (butuh uploader reuse)
+
+---
+
+## Phase 16 — Social Aid & Welfare Intelligence
+
+Status: SELESAI
+
+Fitur:
+- Program bantuan: 5 sumber dana (desa/kabupaten/provinsi/pusat/donatur),
+  periode, kuota, kriteria (jsonb), status active/closed
+- Workflow penerima: candidate -> verified -> accepted -> distributed,
+  dengan reject (alasan) di tahap awal
+- Tidak diambil bantuan: status not_claimed dengan 6 alasan terstruktur
+  (pindah/meninggal/menolak/tidak_ditemukan/tidak_memenuhi_syarat/lainnya)
+  - data TIDAK dihapus, jejak tersimpan
+- Welfare Insight (explainable): app.welfare_insight_candidates menghitung
+  skor transparan dari indikator kesejahteraan (lansia x2, disabilitas x3,
+  single parent x3, tanpa penghasilan x4, balita x1) + faktor ditampilkan
+  per kandidat + disclaimer wajib verifikasi petugas. BUKAN penetapan resmi.
+- Statistik per program: diterima vs kuota, disalurkan
+
+Database migration: 021_social_aid (aid_programs, aid_recipients,
+residents.welfare_indicators, app.welfare_insight_candidates, RLS)
+
+API: /api/aid (GET program+recipients, POST program/recipient, PATCH
+verify/accept/reject/distribute/mark_not_claimed dengan validasi transisi),
+/api/aid/insight (kandidat rekomendasi + disclaimer)
+
+UI: /admin/bantuan (kartu program, tabel penerima dengan aksi inline,
+modal rekomendasi explainable dengan skor + faktor)
+
+Tests: tests/phase16.test.mjs (5): program, workflow status, not_claimed
+data tetap ada, insight skor 9 + faktor transparan + disclaimer, RLS
+
+Known issue: foto dokumentasi distribusi menyusul (butuh uploader reuse);
+indikator kesejahteraan diisi manual saat pendataan

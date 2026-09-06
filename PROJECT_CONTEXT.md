@@ -44,8 +44,8 @@ inisiasi / DEVELOPMENT_PHASES.md).
 
 ## Status Saat Ini
 
-- Fase aktif: Phase 16 (Social Aid)
-- Fase selesai: 1-15
+- Fase aktif: Phase 17 (GIS & Digital Twin)
+- Fase selesai: 1-16
 - Total test: 85 PASS (16 file test, idempotent)
 - Progress: `DEVELOPMENT_PHASES.md`
 

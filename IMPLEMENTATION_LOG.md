@@ -199,3 +199,13 @@
   tsc/eslint/build hijau
 - Pelajaran: hash-check migration menahan perubahan file lama - selalu
   buat migration baru untuk fix
+
+## 2026-09-06 — Phase 16 (Social Aid & Welfare Intelligence) SELESAI
+
+- Migration 021_social_aid: aid_programs, aid_recipients (workflow
+  candidate->verified->accepted->distributed + not_claimed 6 alasan),
+  residents.welfare_indicators, app.welfare_insight_candidates (skor
+  explainable + disclaimer), RLS
+- API: /api/aid + /api/aid/insight dengan validasi transisi status
+- UI: /admin/bantuan dengan modal rekomendasi explainable
+- Test: tests/phase16.test.mjs (5) hijau; tsc/eslint/build hijau
