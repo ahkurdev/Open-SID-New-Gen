@@ -245,3 +245,12 @@
 - API: /api/services + /api/services/scholarship-insight
 - UI: /admin/layanan 2 tab
 - Test: tests/phase20.test.mjs (4) hijau; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 21 (Disaster, Environment & Safety) SELESAI
+
+- Migration 026_disaster_environment (5 tabel RLS) + 027 status widen fix
+- API: /api/emergency (emergency + environment, workflow transisi)
+- UI: /admin/darurat 2 tab
+- Test: tests/phase21.test.mjs (5) hijau; tsc/eslint/build hijau
+- Pelajaran: cek panjang string enum status saat desain varchar;
+  team_assigned butuh 13 char

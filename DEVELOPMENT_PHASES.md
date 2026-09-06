@@ -22,7 +22,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 18 — Agriculture, Livestock, Fishery
 [x] Phase 19 — BUMDes, UMKM & Local Economy
 [x] Phase 20 — Health, Education & Social Services
-[ ] Phase 21 — Disaster, Environment & Safety
+[x] Phase 21 — Disaster, Environment & Safety
 [ ] Phase 22 — Community, Facility & Event
 [ ] Phase 23 — AI Village Copilot & Automation
 [ ] Phase 24 — Executive Analytics & Open Data
@@ -679,3 +679,38 @@ workflow beasiswa + duplikat, insight skor 9 + disclaimer, RLS
 
 Known issue: pendaftaran beasiswa via portal warga & statistik agregat
 publik menyusul
+
+---
+
+## Phase 21 — Disaster, Environment & Safety
+
+Status: SELESAI
+
+Fitur:
+- Emergency Center: laporan darurat 7 kategori (banjir, longsor, kebakaran,
+  gempa, pohon_tumbang, kecelakaan, lainnya), severity 4 tingkat, opsi
+  anonim (nama pelapor disembunyikan)
+- Workflow darurat: reported -> verified -> team_assigned -> evacuating ->
+  resolved -> closed dengan team note
+- Sumber daya darurat: jalur evakuasi, pengungsian, posko, peralatan
+  dengan kapasitas + kontak
+- Lingkungan: titik sampah (TPS/bank sampah/TPA), jadwal pengangkutan
+  mingguan (hari + jam + kendaraan + petugas), aset lingkungan 5 jenis
+  (penghijauan, sumber_air, titik_banjir, titik_sampah_liar,
+  kualitas_udara) dengan kondisi baik/perhatian/kritis
+
+Database migration: 026_disaster_environment (5 tabel, RLS) +
+027_emergency_status_fix (widen kolom status varchar 15)
+
+API: /api/emergency (view=emergency|environment, POST 5 mode termasuk
+laporan darurat tanpa permission khusus, PATCH workflow dengan validasi
+transisi)
+
+UI: /admin/darurat 2 tab (laporan darurat + sumber daya, titik sampah +
+jadwal + aset lingkungan), 5 form modal
+
+Tests: tests/phase21.test.mjs (5): anonim menyembunyikan pelapor,
+workflow 6 status lengkap, sumber daya + jadwal, kondisi lingkungan, RLS
+
+Known issue: broadcast darurat massal & integrasi sensor (fase Smart
+Village) menyusul; foto dokumentasi darurat menyusul
