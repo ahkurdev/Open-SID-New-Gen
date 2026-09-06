@@ -272,3 +272,12 @@
 - API: /api/automation + /api/copilot (permission-scoped, audited)
 - UI: /admin/otomasi (rule builder + chat copilot)
 - Test: tests/phase23.test.mjs (5) hijau; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 24 (Executive Analytics & Open Data) SELESAI
+
+- Migration 030_analytics: 8 views agregat + village_health_score 6 dimensi
+- API: /api/analytics
+- UI: /admin/analytics dengan ekspor CSV
+- Test: tests/phase24.test.mjs (4) hijau; tsc/eslint/build hijau
+- Pelajaran: FILTER harus menempel aggregate langsung (AVG(x) FILTER ...),
+  bukan fungsi luar (ROUND(AVG(x)...) FILTER ...) - wrap dulu lalu cast

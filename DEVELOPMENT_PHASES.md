@@ -25,7 +25,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 21 — Disaster, Environment & Safety
 [x] Phase 22 — Community, Facility & Event
 [x] Phase 23 — AI Village Copilot & Automation
-[ ] Phase 24 — Executive Analytics & Open Data
+[x] Phase 24 — Executive Analytics & Open Data
 [ ] Phase 25 — Integration, PWA, Security, Production
 
 ---
@@ -793,3 +793,35 @@ tersimpan, RLS
 Known issue: trigger letter/sensor/device menyusul di fase Smart Village;
 copilot rule-based (bukan LLM) - upgrade path ke LLM+function-calling saat
 API key tersedia dengan guardrail yang sama
+
+---
+
+## Phase 24 — Executive Analytics & Open Data
+
+Status: SELESAI
+
+Fitur:
+- 8 analytics views agregat: population (demografi), letters (SLA +
+  rata-rata hari terbit), complaints (unresolved + rating), economy
+  (UMKM/farm/BUMDes), aid (distributed vs not_claimed), finance (planned
+  vs realized), assets (kondisi + nilai), projects (progres musrenbang)
+- Village Health Score: 6 DIMENSI TERPISAH (pelayanan, ekonomi, sosial,
+  pembangunan, administrasi, lingkungan) dengan rumus transparan
+  ditampilkan di tiap dimensi + progress bar. BUKAN satu angka abstrak.
+  Disclaimer: menggambarkan kelengkapan data & aktivitas, bukan penilaian
+  resmi kinerja.
+- Ekspor CSV dashboard eksekutif (client-side, tanpa data pribadi)
+- API analytics terlindungi permission analytics.read
+
+Database migration: 030_analytics (8 views + app.village_health_score)
+
+API: /api/analytics (agregat semua domain + health score dimensions)
+
+UI: /admin/analytics (6 kartu dimensi skor + 8 stat card metrik +
+tombol ekspor CSV)
+
+Tests: tests/phase24.test.mjs (4): views agregat (L+P=total), 6 dimensi
+0-100 dengan detail rumus, tanpa data pribadi di skor, RLS
+
+Known issue: drilldown per dimensi & comparison period menyusul;
+open-data endpoint publik terpisah menyusul di fase 25
