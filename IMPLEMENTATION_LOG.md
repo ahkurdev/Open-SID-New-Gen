@@ -169,3 +169,13 @@
 - UI: /admin/musrenbang (statistik, filter, aksi inline, vote, form usulan
   dengan disclaimer voting = input musyawarah)
 - Test: tests/phase12.test.mjs (5) hijau; total 70 PASS; tsc/eslint/build hijau
+
+## 2026-09-06 — Phase 13 (Finance & Budget Intelligence) SELESAI
+
+- Migration 017_finance: budget_plans (UNIQUE per desa/tahun/kategori/nama),
+  finance_transactions (anomaly_flag + anomaly_note),
+  app.detect_finance_anomaly (duplikat 30 hari + lonjakan 5x avg 90 hari)
+- API: /api/finance (GET dashboard, POST plan/transaction)
+- UI: /admin/keuangan dengan progress bar realisasi per pos, burn rate,
+  tren bulanan, panel anomali dengan disclaimer keputusan manusia
+- Test: tests/phase13.test.mjs (5) hijau; total 75 PASS; tsc/eslint/build hijau

@@ -14,7 +14,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 10 — Public Website & Open Government
 [x] Phase 11 — Government Workspace
 [x] Phase 12 — Participatory Planning (E-Musrenbang)
-[ ] Phase 13 — Finance & Budget Intelligence
+[x] Phase 13 — Finance & Budget Intelligence
 [ ] Phase 14 — Procurement, Contract & Vendor
 [ ] Phase 15 — Asset, Inventory & Infrastructure
 [ ] Phase 16 — Social Aid & Welfare Intelligence
@@ -401,3 +401,36 @@ Tests: tests/phase12.test.mjs (5): nomor otomatis, vote 1x1 + duplikat
 ditolak, workflow 7 transisi, view publik tanpa identitas, RLS isolasi
 
 Known issue: peta lokasi usulan menyusul (fase GIS)
+
+---
+
+## Phase 13 — Finance & Budget Intelligence
+
+Status: SELESAI
+
+Fitur:
+- Budget planning per tahun: pos pendapatan/belanja/pembiayaan dengan
+  upsert (UNIQUE village+year+category+name)
+- Transaksi pemasukan/pengeluaran terhubung ke pos anggaran
+- Realisasi per pos: planned vs realized dengan progress bar + burn rate
+  belanja keseluruhan
+- Tren bulanan: pemasukan/pengeluaran per bulan (bar visual)
+- Budget Anomaly Detector (warning saja, keputusan tetap manusia):
+  - flag "duplikat": amount + deskripsi sama dalam 30 hari
+  - flag "lonjakan": amount > 5x rata-rata 90 hari (min 5 transaksi)
+  - flag tersimpan di transaksi + panel anomali terpisah
+- Disclaimer: bukan pengganti sistem resmi pemerintah
+
+Database migration: 017_finance (budget_plans, finance_transactions,
+app.detect_finance_anomaly)
+
+API: /api/finance (GET dashboard tahunan, POST mode=plan|transaction)
+
+UI: /admin/keuangan (StatCard pemasukan/pengeluaran/burn rate/anomali,
+anggaran vs realisasi dengan bar, tren bulanan, panel anomali, form
+transaksi + pos anggaran)
+
+Tests: tests/phase13.test.mjs (5): budget upsert, anomaly duplikat,
+anomaly lonjakan, realisasi terhitung, RLS isolasi
+
+Known issue: import ekstrak Siskeudes & lampiran dokumen transaksi menyusul
