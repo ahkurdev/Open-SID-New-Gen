@@ -254,3 +254,14 @@
 - Test: tests/phase21.test.mjs (5) hijau; tsc/eslint/build hijau
 - Pelajaran: cek panjang string enum status saat desain varchar;
   team_assigned butuh 13 char
+
+## 2026-09-06 — Phase 22 (Community, Facility & Event) SELESAI
+
+- Migration 028_community_events: events + registrations + facilities +
+  bookings dengan EXCLUDE gist constraint (double booking guard),
+  upcoming_events_public, RLS
+- API: /api/community + /api/community/public-events
+- UI: /admin/komunitas 2 tab
+- Test: tests/phase22.test.mjs (4) hijau; tsc/eslint/build hijau
+- Pelajaran: tsrange untuk timestamp tanpa TZ, tstzrange untuk timestamptz;
+  tangani error code 23P01 sebagai 409

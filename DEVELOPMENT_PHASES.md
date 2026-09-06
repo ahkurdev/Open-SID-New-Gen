@@ -23,7 +23,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 19 — BUMDes, UMKM & Local Economy
 [x] Phase 20 — Health, Education & Social Services
 [x] Phase 21 — Disaster, Environment & Safety
-[ ] Phase 22 — Community, Facility & Event
+[x] Phase 22 — Community, Facility & Event
 [ ] Phase 23 — AI Village Copilot & Automation
 [ ] Phase 24 — Executive Analytics & Open Data
 [ ] Phase 25 — Integration, PWA, Security, Production
@@ -714,3 +714,43 @@ workflow 6 status lengkap, sumber daya + jadwal, kondisi lingkungan, RLS
 
 Known issue: broadcast darurat massal & integrasi sensor (fase Smart
 Village) menyusul; foto dokumentasi darurat menyusul
+
+---
+
+## Phase 22 — Community, Facility & Event Platform
+
+Status: SELESAI
+
+Fitur:
+- Kegiatan komunitas 8 kategori (gotong_royong, olahraga, keagamaan,
+  pemuda, pkk, karang_taruna, kelompok_tani, umum) dengan waktu, lokasi,
+  penyelenggara, visibility publik
+- Pendaftaran peserta + Volunteer Matching: kegiatan menandai butuh
+  relawan dengan target, pendaftar bisa mendaftar sebagai relawan,
+  progres relawan terlihat (x/target)
+- Fasilitas desa 6 jenis (balai_desa, aula, lapangan, kendaraan, alat,
+  lainnya) dengan kapasitas + link ke aset
+- Booking fasilitas dengan DOUBLE BOOKING GUARD di level database:
+  constraint EXCLUDE USING gist (tstzrange overlap) untuk status
+  pending/approved - tidak mungkin double booking walau race condition
+- Workflow booking: pending -> approved/rejected -> done/cancelled
+- Kalender publik via app.upcoming_events_public: hanya kegiatan
+  mendatang yang is_public, tanpa data pribadi
+
+Database migration: 028_community_events (community_events,
+event_registrations, facilities, facility_bookings + EXCLUDE constraint,
+app.upcoming_events_public, RLS)
+
+API: /api/community (view=events|facilities, POST event/register/
+facility/booking dengan penanganan error 23P01 double booking, PATCH
+approve/reject/done/cancel), /api/community/public-events
+
+UI: /admin/komunitas 2 tab (kegiatan + pendaftaran relawan, fasilitas +
+booking approval)
+
+Tests: tests/phase22.test.mjs (4): pendaftaran + duplikat ditolak,
+double booking DITOLAK database + booking non-overlap OK, kalender
+publik hanya mendatang, RLS
+
+Known issue: kalender visual bulanan & notifikasi volunteer matching
+menyusul
