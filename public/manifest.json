@@ -1,0 +1,17 @@
+{
+  "name": "Village OS - Sistem Informasi Desa",
+  "short_name": "VillageOS",
+  "description": "Smart Village Operating System: pemerintahan, pelayanan, pembangunan desa dalam satu platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#1a56db",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -26,7 +26,7 @@ Legend: [x] selesai & terverifikasi, [~] berjalan, [ ] belum.
 [x] Phase 22 — Community, Facility & Event
 [x] Phase 23 — AI Village Copilot & Automation
 [x] Phase 24 — Executive Analytics & Open Data
-[ ] Phase 25 — Integration, PWA, Security, Production
+[x] Phase 25 — Integration, PWA, Security, Production
 
 ---
 
@@ -825,3 +825,40 @@ Tests: tests/phase24.test.mjs (4): views agregat (L+P=total), 6 dimensi
 
 Known issue: drilldown per dimensi & comparison period menyusul;
 open-data endpoint publik terpisah menyusul di fase 25
+
+---
+
+## Phase 25 — Integration, PWA, Security, Production
+
+Status: SELESAI
+
+Fitur:
+- API Key system: buat key per desa dengan scopes (read/write), server
+  simpan HASH sha256 saja (raw key ditampilkan SEKALI saat create),
+  prefix identifikasi, app.verify_api_key VOLATILE (update last_used_at),
+  toggle aktif/nonaktif
+- Open Data v2: endpoint publik dengan whitelist 6 dataset aman (profile,
+  population, letters, complaints, economy, events) - dataset sensitif
+  (residents individu, aid_recipients) TIDAK di whitelist; format JSON
+  atau CSV; rate limiting 30 req/menit per IP; lisensi CC-BY-4.0
+- Security headers helper: nosniff, DENY frame, referrer policy,
+  permissions policy, HSTS di production
+- PWA: manifest.json (standalone, theme icon) + icon.svg; installable
+- Backup: scripts/backup-db.sh (pg_dump custom format, retensi 14 hari
+  otomatis) + docs/BACKUP_RECOVERY.md (restore procedure + monthly
+  drill checklist)
+
+Database migration: 031_production (api_keys + verify function) +
+032_verify_api_key_volatile (fix STABLE -> VOLATILE karena ada UPDATE)
+
+API: /api/api-keys (GET list, POST create sekali-lihat, PATCH toggle),
+/api/open-data/v2 (publik, rate-limited, whitelist)
+
+Tests: tests/phase25.test.mjs (4): pg_dump backup nyata >10KB, api key
+hash-only + verify benar/salah, whitelist open data tanpa dataset
+sensitif, manifest valid
+
+Known issue: service worker offline cache menyusul (manifest sudah
+installable); API key belum dipakai endpoint eksternal mana pun (siap
+dipakai integrasi Siskeudes/dll saat tersedia); rate limit in-memory
+(single-instance) - ganti Redis saat multi-instance

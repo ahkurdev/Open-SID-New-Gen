@@ -281,3 +281,18 @@
 - Test: tests/phase24.test.mjs (4) hijau; tsc/eslint/build hijau
 - Pelajaran: FILTER harus menempel aggregate langsung (AVG(x) FILTER ...),
   bukan fungsi luar (ROUND(AVG(x)...) FILTER ...) - wrap dulu lalu cast
+
+## 2026-09-06 — Phase 25 (Integration, PWA, Security, Production) SELESAI
+
+- Migration 031_production (api_keys hash-only) + 032 (verify VOLATILE fix)
+- API: /api/api-keys, /api/open-data/v2 (rate-limited, whitelist)
+- PWA manifest + icon; security headers helper; backup script + docs
+- Test: tests/phase25.test.mjs (4) hijau; tsc/eslint/build hijau
+
+## STATUS AKHIR: 25/25 FASE SELESAI
+
+- 32 migration SQL, RLS penuh multi-tenant di semua tabel bisnis
+- 26 file test (phase1-25 + auth), semua idempotent
+- Akun demo: admin/sekdes/operator/bendahara/kaur/warga @sinar-mulyo.test
+  (password Password123!)
+- Tanpa Docker: Postgres 16.9 portable di vendor/pgsql, port 54329
